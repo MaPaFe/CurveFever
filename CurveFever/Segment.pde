@@ -1,13 +1,13 @@
 class Segment {
-  PVector posicion;//posición de circulo 
+  PVector pos;
   int size;
-  Segment(PVector posicion_) {
-    posicion = posicion_.get();
+
+  Segment(PVector pos_) {
+    pos = pos_.copy();
     size = 5;
   }
-  
+
   void display() {
-   ellipse(posicion.x, posicion.y, size, size); 
+    ellipse(pos.x, pos.y, size, size);
   }
-  
 }
