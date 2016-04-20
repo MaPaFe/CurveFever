@@ -1,5 +1,6 @@
 // http://curvefever.net/curve-fever/ //<>//
 
+float size = 5;
 float angle = 5;
 float speed = 1.5;
 
@@ -14,13 +15,16 @@ void setup() {
   //frameRate(5);
   colorMode(HSB, 255);
 
-  for (int i = 0; i < 2; i++) lines.add(new Line(random(height), random(width)));
+  for (int i = 0; i < 3; i++) lines.add(new Line(random(height), random(width)));
 }
 
 void draw() {
-  background(0);
+  background(50);
 
-  for (Line l : lines) {
+  for (Line l : lines) { 
+    for (Line other : lines) {
+      l.colission(other);
+    }
     l.update();
   }
 
@@ -35,14 +39,10 @@ void draw() {
         break;
       case ' ' :
         l.path.clear();
+        l.path.add(new Segment(l.pos, l.c));
+        l.colission = false;
         break;
       }
-    }
-  }
-
-  for (Line l : lines) {
-    for (Line other : lines) {
-      l.colission(other);
     }
   }
 }

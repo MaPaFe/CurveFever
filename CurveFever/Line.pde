@@ -11,25 +11,27 @@ class Line {
     vel.mult(speed);//velocidad ajustada
     colission = false;
     c = color(random(255), 255, 255);
+
+    path.add(new Segment(pos, c));
   }
 
   void update() {
     if (!colission) {
       pos.add(vel);//actualizar posicion de vector pos
       path.add(new Segment(pos, c));
-      colission(this);
     }
     display();
   }
 
   void colission(Line l) {
-    for (int i = 0; i < l.path.size() - speed * l.path.get(l.path.size()-1).size; i++) {
+    Segment t = path.get(path.size()-1);
+    for (int i = 0; i < l.path.size() - speed * size; i++) {
       Segment s = l.path.get(i);
-      if (dist(l.path.get(l.path.size()-1).pos.x, l.path.get(l.path.size()-1).pos.y, s.pos.x, s.pos.y) < (l.path.get(l.path.size()-1).size/2 + s.size/2)) {
+      if (dist(t.pos.x, t.pos.y, s.pos.x, s.pos.y) < size * 2) {
         colission = true;
       }
     }
-    if (pos.x <= l.path.get(l.path.size()-1).size/2 || pos.x >= width - l.path.get(l.path.size()-1).size/2 || pos.y <= l.path.get(l.path.size()-1).size/2 || pos.y >= height - l.path.get(l.path.size()-1).size/2) {
+    if (pos.x <= size || pos.x >= width - size || pos.y <= size || pos.y >= height - size) {
       colission = true;
     }
   }
