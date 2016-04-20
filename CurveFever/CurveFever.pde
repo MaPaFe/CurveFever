@@ -9,7 +9,7 @@ Line myLine2 = new Line(200, 200);
 void setup() {
   size(600, 600);//, P2D);
   //fullScreen();
-  pixelDensity(2);
+  //pixelDensity(2);
   noStroke();
   background(0);
   //frameRate(5);
