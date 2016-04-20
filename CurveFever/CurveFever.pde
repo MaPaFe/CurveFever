@@ -1,10 +1,9 @@
-// http://curvefever.net/curve-fever/   //<>// //<>//
+// http://curvefever.net/curve-fever/ //<>//
 
 float angle = 5;
-float speed = 1;
+float speed = 1.5;
 
-Line myLine = new Line(100, 100);
-Line myLine2 = new Line(200, 200);
+ArrayList <Line> lines = new ArrayList <Line>();
 
 void setup() {
   size(600, 600);//, P2D);
@@ -13,32 +12,37 @@ void setup() {
   noStroke();
   background(0);
   //frameRate(5);
+  colorMode(HSB, 255);
+
+  for (int i = 0; i < 2; i++) lines.add(new Line(random(height), random(width)));
 }
 
 void draw() {
   background(0);
-  myLine.live();
-  println(myLine.colission);
-  //myLine2.live();
+
+  for (Line l : lines) {
+    l.update();
+  }
 
   if (keyPressed) {
-    switch(key) {
-    case 'a' :
-      myLine.rotate(1, angle);
-      break;
-    case 'd' :
-      myLine.rotate(-1, angle);
-      break;
-    case 'k' :
-      myLine2.rotate(1, angle);
-      break;
-    case 'l' :
-      myLine2.rotate(-1, angle);
-      break;
-    case ' ' :
-      myLine.path.clear();
-      myLine2.path.clear();
-      break;
+    for (Line l : lines) {
+      switch(key) {
+      case 'a' :
+        l.rotate(true, angle);
+        break;
+      case 'd' :
+        l.rotate(false, angle);
+        break;
+      case ' ' :
+        l.path.clear();
+        break;
+      }
+    }
+  }
+
+  for (Line l : lines) {
+    for (Line other : lines) {
+      l.colission(other);
     }
   }
 }
